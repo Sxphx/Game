@@ -5,6 +5,11 @@ body {
   background-image: url(./img/background.gif);
 }
 
+span.menu-spacer {
+  border-left: 5px solid #000900;
+  border-radius: 5px;
+}
+
 .city-display {
   justify-content: center;
   display: flex;
@@ -62,16 +67,14 @@ body {
   transform: scale(1.05);
 }
 
-/* Make resource bars more visible */
 .resource-bar {
   width: 100%;
   background-color: #e0e0e0;
   border-radius: 4px;
   margin-bottom: 5px;
   position: relative;
-  /* For absolute positioning of text */
   height: 20px;
-  /* Increase height to fit text */
+  transition: width 0.3s ease-out;
 }
 
 .resource-level {
@@ -79,6 +82,7 @@ body {
   background-color: #4CAF50;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  transition: width 0.3s ease-out;
 }
 
 .resource-level.critical {

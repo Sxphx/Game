@@ -5,4 +5,5 @@ let population = 50;
 let money = 200;
 let happiness = 100;
 let score = 0;
-let turn = 0;
+let action = 0;
+let researchPoint = 100;

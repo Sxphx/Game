@@ -1,48 +1,98 @@
-function triggerRandomEvent() {
-    const events = [
-        {
-            name: "Drought",
-            description: "A drought has hit your region!",
-            effect: () => {
-                water -= 30;
-                showAlert("warning", "Drought", "A drought has hit your region! Water supplies have decreased.");
-            }
-        },
-        {
-            name: "Power Surge",
-            description: "A power surge has damaged some infrastructure!",
-            effect: () => {
-                energy -= 25;
-                showAlert("warning", "Power Surge", "A power surge has damaged some infrastructure! Energy supplies have decreased.");
-            }
-        },
-        {
-            name: "Bountiful Harvest",
-            description: "Favorable conditions have led to a bountiful harvest!",
-            effect: () => {
-                food += 40;
-                showAlert("success", "Bountiful Harvest", "Favorable conditions have led to a bountiful harvest! Food supplies have increased.");
-            }
-        },
-        {
-            name: "Economic Boom",
-            description: "Your city is experiencing an economic boom!",
-            effect: () => {
-                money += 50;
-                happiness += 10;
-                showAlert("success", "Economic Boom", "Your city is experiencing an economic boom! Money and happiness have increased.");
-            }
-        },
-        {
-            name: "Innovation",
-            description: "Your researchers have made a breakthrough!",
-            effect: () => {
-                researchPoint += 20;
-                showAlert("success", "Innovation", "Your researchers have made a breakthrough! Research points have increased.");
-            }
+const events = [
+    {
+        name: "Drought",
+        description: "A drought has hit your region!",
+        effect: () => {
+            water -= 30;
+            showAlert(
+                "warning",
+                "A drought has hit your region!",
+                "Drought : Water -30."
+            );
         }
-    ];
+    },
+    {
+        name: "Power Surge",
+        description: "A power surge has damaged some infrastructure!",
+        effect: () => {
+            energy -= 25;
+            showAlert(
+                "warning",
+                "A power surge has damaged some infrastructure!",
+                "Power Surge : Energy -25."
+            );
+        }
+    },
+    {
+        name: "Bountiful Harvest",
+        description: "Favorable conditions have led to a bountiful harvest!",
+        effect: () => {
+            food += 40;
+            showAlert(
+                "success",
+                "Bountiful Harvest",
+                "Favorable conditions have led to a bountiful harvest!",
+                "Food supplies have increased : Food +40."
+            );
+        }
+    },
+    {
+        name: "Economic Boom",
+        description: "Your city is experiencing an economic boom!",
+        effect: () => {
+            money += 50;
+            happiness += 10;
+            showAlert(
+                "success",
+                "Economic Boom",
+                "Your city is experiencing an economic boom!.",
+                "Economic Boom : Money +50, Happiness +10.");
+        }
+    },
+    {
+        name: "Eureka!",
+        description: "Your researchers have made a breakthrough!",
+        effect: () => {
+            researchPoint += 20;
+            showAlert(
+                "success",
+                "Your researchers have made a breakthrough!",
+                "Eureka! : Research Points +20",
+            );
+        }
+    }
+];
 
-    const event = events[Math.floor(Math.random() * events.length)];
-    event.effect();
+function protest() {
+    const ownedBuildings = buildingsList.filter(b => b.owned);
+    const building = ownedBuildings[Math.floor(Math.random() * ownedBuildings.length)];
+    building.owned = false;
+    updateBuildingUI(building.id);
+    showAlert(
+        "error",
+        "Protest",
+        "A group of angry citizens has destroyed a building!",
+        "Building destroyed : " + building.name
+    );
+
+    population -= 5;
+    happiness -= 5;
+    updateStats();
+}
+
+function randomEvent() {
+    if (Math.random() < 0.05) {
+        const event = events[Math.floor(Math.random() * events.length)];
+        event.effect();
+        console.log(`Random Event: ${event.name}`);
+
+    }
+
+    const protestChance = 0.05 + (population / 1000) * 0.01 - (happiness / 100) * 0.005;
+    console.log("Protest Chance", protestChance);
+
+    if (Math.random() < protestChance && happiness < 65) {
+        console.log("Math Random", Math.random());
+        protest();
+    }
 }

@@ -5,7 +5,7 @@ let buildingsList = [
         owned: false,
         cost: { money: 35, energy: 5, water: 0, food: 0, happiness: 0 },
         effects: { water: 4 },
-        description: "Produces 4 water per turn"
+        description: "Produces 4 water per action"
     },
     {
         name: "Power Plant",
@@ -13,7 +13,7 @@ let buildingsList = [
         owned: false,
         cost: { money: 40, water: 15, energy: 0, food: 0, happiness: 0 },
         effects: { energy: 6 },
-        description: "Produces 6 energy per turn"
+        description: "Produces 6 energy per action"
     },
     {
         name: "Farm",
@@ -21,7 +21,7 @@ let buildingsList = [
         owned: false,
         cost: { money: 30, water: 20, energy: 10, food: 0, happiness: 0 },
         effects: { food: 5 },
-        description: "Produces 5 food per turn"
+        description: "Produces 5 food per action"
     },
     {
         name: "Park",
@@ -29,7 +29,7 @@ let buildingsList = [
         owned: false,
         cost: { money: 25, water: 10, energy: 0, food: 0, happiness: 0 },
         effects: { happiness: 2 },
-        description: "Increases happiness by 2 per turn"
+        description: "Increases happiness by 2 per action"
     },
     {
         name: "Market",
@@ -37,14 +37,14 @@ let buildingsList = [
         owned: false,
         cost: { money: 45, water: 0, energy: 10, food: 5, happiness: 0 },
         effects: { money: 2, happiness: 1 },
-        description: "Generates 2 money and 1 happiness per turn"
+        description: "Generates 2 money and 1 happiness per action"
     }
 ];
 
 
 function buildingListUI() {
     const buildingListElement = document.getElementById('building-list');
-    if (!buildingListElement) return;
+    if (!buildingListElement) reaction;
 
     buildingListElement.innerHTML = '';
 
@@ -111,7 +111,7 @@ function updateBuildingUI(buildingId) {
 
             if (!buildingElement || !buildingOwnedElement) {
                 console.error(`UI element not found for building: ${building.id}`);
-                return;
+                reaction;
             }
 
             if (building.owned) {

@@ -1,5 +1,3 @@
-let researchPoint = 100;
-
 let researchList = [
     { name: "Water Purification", id: "waterPurification", owned: false, cost: 50, description: "Reduces water consumption by 15%" },
     { name: "Solar Panels", id: "solarPanels", owned: false, cost: 60, description: "Increases energy production by 10%" },
@@ -96,7 +94,7 @@ function updateResearchUI(researchId) {
     }
 }
 function researchPointsEarn() {
-    const basePoints = Math.max(1, Math.floor(turn / 8));
+    const basePoints = Math.max(1, Math.floor(action / 8));
     const populationBonus = Math.floor(Math.sqrt(population) / 2);
     const happinessBonus = Math.floor(happiness / 25);
 

@@ -1,3 +1,5 @@
+
+
 function checkForValidMoves() {
     if (water <= 0 && energy <= 0 && food <= 0) {
         return false;
@@ -21,6 +23,25 @@ function checkForValidMoves() {
     return true;
 }
 
+
+function makeTable() {
+    const table = document.createElement("table");
+    const tbody = document.createElement("tbody");
+    for (let i = 0; i < 3; i++) {
+        const tr = document.createElement("tr");
+        for (let j = 0; j < 6; j++) {
+            const td = document.createElement("td");
+            td.id = `cell-${i}-${j}`;
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    const container = document.getElementById("table-container");
+    container.appendChild(table);
+}
+
+makeTable();
 
 function checkResourceShortages() {
     let criticalShortages = 0;
@@ -54,6 +75,38 @@ function checkResourceShortages() {
 
     return true;
 }
+
+function gameOver() {
+    let gameOverReason = "";
+
+    if (happiness <= 0) {
+        gameOverReason = "Your citizens are extremely unhappy and have revolted!";
+    } else if (population <= 0) {
+        gameOverReason = "Your city has been abandoned due to poor living conditions!";
+    } else if (water <= 0 && energy <= 0 && food <= 0) {
+        gameOverReason = "Your city has run out of all critical resources!";
+    } else {
+        gameOverReason = "You've run out of resources and have no valid moves left!";
+    }
+
+    document.getElementById('final-score').textContent = Math.floor(score);
+    document.getElementById('game-over-reason').textContent = gameOverReason;
+
+    const gameOverModal = new bootstrap.Modal(document.getElementById('gameOverModal'));
+    gameOverModal.show();
+
+    const actionButtons = document.querySelectorAll('#bottom-menu button');
+    actionButtons.forEach(button => {
+        if (!button.getAttribute('data-bs-toggle')) {
+            button.disabled = true;
+        }
+    });
+
+    console.log("Game Over! Final Score: " + Math.floor(score));
+    showAlert("error", "Game Over", gameOverReason);
+    console.log(water, energy, food, population, money, happiness);
+}
+
 
 
 function makeDecision(decision) {
@@ -114,13 +167,25 @@ function makeDecision(decision) {
     const baseConsumption = 5;
     const populationFactor = 1 + (population / 100);
 
-    energy -= baseConsumption + (5 * populationFactor);
-    food -= baseConsumption * populationFactor;
-    water -= baseConsumption * populationFactor;
-    happiness -= 2;
+    const energyConsumed = baseConsumption + (5 * populationFactor);
+    const foodConsumed = baseConsumption * populationFactor;
+    const waterConsumed = baseConsumption * populationFactor;
+    const happinessConsumed = 2;
+
+    if (food < 75) {
+        const happinessConsumed = baseConsumption * populationFactor;
+    }
+
+    energy -= energyConsumed;
+    food -= foodConsumed;
+    water -= waterConsumed;
+    happiness -= happinessConsumed;
+
+    console.log(`Consumption - Energy: ${energyConsumed}, Food: ${foodConsumed}, Water: ${waterConsumed}, Happiness: ${happinessConsumed}`);
+
+
 
     checkResourceShortages();
-
     if (!checkForValidMoves()) {
         showAlert("error", "No Valid Moves", "You have no valid moves left and insufficient resources to recover!");
         gameOver();
@@ -129,12 +194,8 @@ function makeDecision(decision) {
 
     researchPointsEarn();
     generateIncome();
-
-    if (Math.random() < 0.05) {
-        triggerRandomEvent();
-    }
-
-    turn++;
+    randomEvent();
+    action++;
     updateStats();
 }
 
@@ -169,6 +230,7 @@ function generateIncome() {
     const happinessFactor = happiness / 50;
 
     money += baseIncome * populationFactor * happinessFactor;
+
 }
 
 
@@ -197,3 +259,4 @@ function checkAutomation() {
     const autoTech = researchList.find(r => r.id === "automation");
     return autoTech && autoTech.owned ? 0.15 : 0;
 }
+

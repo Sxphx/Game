@@ -17,6 +17,8 @@ function showAlert(type, topic, message) {
 
     toastr.options = toastrOptions;
 
+    console.log(`[NOTIFY ${type}] ${topic}: ${message}`);
+
     if (type === 'success') {
         toastr.success(topic, message);
     } else if (type === 'error') {
@@ -29,3 +31,4 @@ function showAlert(type, topic, message) {
         toastr.info(topic, message);
     }
 }
+

@@ -8,7 +8,7 @@ function updateStats() {
     console.log(`Money: ${money}`);
     console.log(`Happiness: ${happiness}`);
     console.log(`Score: ${score}`);
-    console.log(`Turn: ${turn}`);
+    console.log(`Action: ${action}`);
     console.log('------------------------');
 
     document.getElementById('water').textContent = Math.max(0, Math.floor(water));
@@ -18,7 +18,7 @@ function updateStats() {
     document.getElementById('money').textContent = Math.max(0, Math.floor(money));
     document.getElementById('happiness').textContent = Math.min(100, Math.max(0, Math.floor(happiness)));
     document.getElementById('score').textContent = Math.floor(score);
-    document.getElementById('turn').textContent = turn;
+    document.getElementById('action').textContent = action;
 
     updateResourceBar('water-bar', water, 200);
     updateResourceBar('energy-bar', energy, 200);
@@ -61,47 +61,11 @@ function updateResourceBar(id, value, max) {
 function incrementScore() {
     const resourceScore = (water + energy + food + happiness) / 4;
     const populationFactor = Math.max(1, population / 10);
-    const turnScore = Math.floor(resourceScore * (populationFactor / 10));
+    const actionScore = Math.floor(resourceScore * (populationFactor / 10));
 
-    score += turnScore;
+    score += actionScore;
     document.getElementById('score').textContent = score;
 }
-
-function restartGame() {
-    water = 200;
-    energy = 200;
-    food = 200;
-    population = 50;
-    money = 200;
-    happiness = 100;
-    score = 0;
-    turn = 0;
-    researchPoint = 100;
-
-    for (const research of researchList) {
-        research.owned = false;
-    }
-
-    for (const building of buildingsList) {
-        building.count = 0;
-    }
-
-    updateStats();
-    researchListUI();
-    buildingsListUI();
-
-    const gameOverModal = bootstrap.Modal.getInstance(document.getElementById('gameOverModal'));
-    gameOverModal.hide();
-
-    buttons.forEach(button => {
-        if (!button.getAttribute('data-bs-toggle')) {
-            button.disabled = false;
-        }
-    })
-
-    showAlert("info", "New Game Started", "Good luck managing your city!");
-}
-
 function gameOver() {
     let gameOverReason = "";
 
