@@ -29,10 +29,15 @@ function makeTable() {
     const tbody = document.createElement("tbody");
     for (let i = 0; i < 3; i++) {
         const tr = document.createElement("tr");
-        for (let j = 0; j < 6; j++) {
+        for (let j = 0; j < 4; j++) {
             const td = document.createElement("td");
             td.id = `cell-${i}-${j}`;
+            imgtd = document.createElement("img");
+            imgtd.src = "/img/Ground.png";
+            imgtd.id = "ground";
+            imgtd.className = "city";
             tr.appendChild(td);
+            td.appendChild(imgtd);
         }
         tbody.appendChild(tr);
     }
@@ -111,6 +116,19 @@ function gameOver() {
 
 function makeDecision(decision) {
     console.log(`Making decision: ${decision}`);
+
+    let waterMultiplier = 1 + (cityExpansion * 0.05);
+    let energyMultiplier = 1 + (cityExpansion * 0.05);
+    let foodMultiplier = 1 + (cityExpansion * 0.05);
+    let reduceExpandCost = 1 + (cityExpansion * 0.05);
+
+    console.log(`
+        Water Multiplier: ${waterMultiplier}, 
+        Energy Multiplier: ${energyMultiplier}, 
+        Food Multiplier: ${foodMultiplier}, 
+        Reduce Expand Cost: ${reduceExpandCost}`
+    );
+
     if (!checkForValidMoves()) {
         showAlert("error", "No Valid Moves", "You have no valid moves left and insufficient resources to recover!");
         gameOver();
@@ -123,9 +141,11 @@ function makeDecision(decision) {
                 showAlert("error", "Not enough money", `You need ${Math.ceil(waterCost)} money to invest in water infrastructure.`);
                 return;
             }
-            water += 25 * (1 + checkWater());
+            waterGet = 25 * (1 + checkWater()) * waterMultiplier
+            water += waterGet;
             money -= waterCost;
-            showAlert("success", "Water Infrastructure Improved", "Water supply has increased.");
+            console.log(`Get water: ${waterGet}`);
+            showAlert("success", "Water Infrastructure Improved", `Water supply has increased by ${waterGet}.`);
             break;
 
         case 'buildEnergy':
@@ -134,10 +154,11 @@ function makeDecision(decision) {
                 showAlert("error", "Insufficient resources", `You need 15 water and ${Math.ceil(energyCost)} money to build a power plant.`);
                 return;
             }
-            energy += 30 * (1 + checkSolar());
+            energyGet = 30 * (1 + checkSolar()) * energyMultiplier;
+            energy += energyGet;
             water -= 15;
             money -= energyCost;
-            showAlert("success", "Power Plant Built", "Energy production has increased.");
+            showAlert("success", "Power Plant Built", `Energy production has increased by ${energyGet}.`);
             break;
 
         case 'harvestFood':
@@ -147,20 +168,27 @@ function makeDecision(decision) {
             }
             water -= 20;
             energy -= 15;
-            food += 35 * (1 + checkFarm());
-            showAlert("success", "Food Harvested", "Food production has increased.");
+            foodGet = 35 * (1 + checkFarm()) * foodMultiplier;
+            food += foodGet;
+            showAlert("success", "Food Harvested", `Food production has increased by ${foodGet}.`);
             break;
 
         case 'expandCity':
-            const expansionCost = 50 * (1 - checkAutomation());
+            const expansionCost = 50 * (1 - checkAutomation()) * reduceExpandCost;
             if (money < expansionCost) {
                 showAlert("error", "Not enough money", `You need ${Math.ceil(expansionCost)} money to expand the city.`);
                 return;
+            } else if (availableSpace <= 0) {
+                showAlert("error", "No available space", "No available space to expand the city.");
+                return;
             }
+            cityExpansion += 1;
+            availableSpace -= 1;
             population += 15;
             happiness += 15 * (1 + checkTransport());
             money -= expansionCost;
-            showAlert("success", "City Expansion", "Population and happiness have increased.");
+            console.log(`Expansion cost: ${expansionCost}`);
+            showAlert("success", "City Expansion", `Population and happiness have increased by ${15}.`);
             break;
     }
 

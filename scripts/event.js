@@ -29,7 +29,7 @@ const events = [
         effect: () => {
             food += 40;
             showAlert(
-                "success",
+                "warning",
                 "Bountiful Harvest",
                 "Favorable conditions have led to a bountiful harvest!",
                 "Food supplies have increased : Food +40."
@@ -43,7 +43,7 @@ const events = [
             money += 50;
             happiness += 10;
             showAlert(
-                "success",
+                "warning",
                 "Economic Boom",
                 "Your city is experiencing an economic boom!.",
                 "Economic Boom : Money +50, Happiness +10.");
@@ -55,7 +55,7 @@ const events = [
         effect: () => {
             researchPoint += 20;
             showAlert(
-                "success",
+                "warning",
                 "Your researchers have made a breakthrough!",
                 "Eureka! : Research Points +20",
             );
@@ -65,7 +65,8 @@ const events = [
 
 function protest() {
     const ownedBuildings = buildingsList.filter(b => b.owned);
-    const building = ownedBuildings[Math.floor(Math.random() * ownedBuildings.length)];
+    const randomIndex = Math.floor(Math.random() * ownedBuildings.length);
+    const building = ownedBuildings[randomIndex];
     building.owned = false;
     updateBuildingUI(building.id);
     showAlert(
@@ -81,7 +82,7 @@ function protest() {
 }
 
 function randomEvent() {
-    if (Math.random() < 0.05) {
+    if (Math.random() < 0.1) {
         const event = events[Math.floor(Math.random() * events.length)];
         event.effect();
         console.log(`Random Event: ${event.name}`);

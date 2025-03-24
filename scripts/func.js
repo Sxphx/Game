@@ -7,6 +7,8 @@ function updateStats() {
     console.log(`Population: ${population}`);
     console.log(`Money: ${money}`);
     console.log(`Happiness: ${happiness}`);
+    console.log(`City Expanded: ${cityExpansion}`);
+    console.log(`Available Space: ${availableSpace}`);
     console.log(`Score: ${score}`);
     console.log(`Action: ${action}`);
     console.log('------------------------');
