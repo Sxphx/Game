@@ -94,7 +94,13 @@ function gameOver() {
         }
     });
 
+    sendScoreToServer(score);
+
     console.log("Game Over! Final Score: " + Math.floor(score));
     showAlert("error", "Game Over", gameOverReason);
     console.log(water, energy, food, population, money, happiness);
+}
+
+function restart() {
+    location.reload();
 }

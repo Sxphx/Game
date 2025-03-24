@@ -8,4 +8,4 @@ let score = 0;
 let action = 0;
 let researchPoint = 100;
 let cityExpansion = 0;
-let availableSpace = 12;
+let availableSpace = 8;

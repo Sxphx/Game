@@ -31,4 +31,3 @@ function showAlert(type, topic, message) {
         toastr.info(topic, message);
     }
 }
-

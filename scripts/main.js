@@ -29,7 +29,7 @@ function makeTable() {
     const tbody = document.createElement("tbody");
     for (let i = 0; i < 3; i++) {
         const tr = document.createElement("tr");
-        for (let j = 0; j < 4; j++) {
+        for (let j = 0; j < 3; j++) {
             const td = document.createElement("td");
             td.id = `cell-${i}-${j}`;
             imgtd = document.createElement("img");

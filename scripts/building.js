@@ -88,7 +88,11 @@ function buildingListUI() {
 function buildingBuy(buildingId) {
     console.log(`Buying building: ${buildingId}`);
     const building = buildingsList.find(building => building.id === buildingId);
-    if (building) {
+    if (availableSpace <= 0) {
+        showAlert("error", "Building Failed", "No more space available for buildings.");
+        return;
+    }
+    else if (building) {
         for (const [resource, amount] of Object.entries(building.cost)) {
             if (resource === 'money') money -= amount;
             if (resource === 'water') water -= amount;
@@ -96,12 +100,15 @@ function buildingBuy(buildingId) {
             if (resource === 'food') food -= amount;
             if (resource === 'happiness') happiness -= amount;
         }
-        building.owned = true;
-        showAlert("success", "Building Purchased", `You have successfully purchased the ${building.name}.`);
-        updateStats();
-        updateBuildingUI(buildingId);
     }
+    building.owned = true;
+    availableSpace -= 1;
+    console.log(`availableSpace: ${availableSpace}`);
+    showAlert("success", "Building Purchased", `You have successfully purchased the ${building.name}.`);
+    updateStats();
+    updateBuildingUI(buildingId);
 }
+
 function updateBuildingUI(buildingId) {
     console.log(`Updating building UI: ${buildingId}`);
     for (const building of buildingsList) {
