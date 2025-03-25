@@ -278,16 +278,6 @@ function updateLRL(userData) {
 }
 
 async function sendScoreToServer(score) {
-  console.log('window.userData', window.userData);
-  if (!window.userData || !window.userData.loggedIn) {
-    showAlertServer(
-      "warning",
-      "Not logged in",
-      "Please log in to submit your score."
-    );
-    return;
-  }
-
   try {
     const response = await fetch(`${API_BASE_URL}/score`, {
       method: "POST",
