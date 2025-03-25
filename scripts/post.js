@@ -278,22 +278,13 @@ function updateLRL(userData) {
 }
 
 async function sendScoreToServer(score) {
-  if (!window.userData) {
-    window.userData.user = {
-      loggedIn: false,
-      username: "Guest",
-      UID: null,
-      score: 0,
-    };
-  }
-
-  if (window.userData.user.loggedIn === false) {
+  console.log('window.userData', window.userData);
+  if (!window.userData || !window.userData.loggedIn) {
     showAlertServer(
       "warning",
       "Not logged in",
       "Please log in to submit your score."
     );
-    console.log("User is not logged in.");
     return;
   }
 
@@ -308,14 +299,11 @@ async function sendScoreToServer(score) {
     const responseJson = await response.json();
 
     if (response.ok) {
-      console.log("Score submitted successfully:", responseJson);
       showAlertServer("success", "Score submitted", responseJson.message);
     } else {
-      console.error("Error submitting score:", responseJson);
       showAlertServer("error", "Error submitting score", responseJson.message);
     }
   } catch (error) {
-    console.error("Error submitting score:", error);
     showAlertServer(
       "error",
       "Error submitting score",
