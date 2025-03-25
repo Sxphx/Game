@@ -177,7 +177,7 @@ async function login() {
       usernameInput.value = "";
       passwordInput.value = "";
       window.userData = data;
-      // console.log("Login", window.userData);
+      console.log("Login", window.userData);
       updateLRL({
         loggedIn: true,
         username: data.user.username,
