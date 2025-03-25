@@ -1,7 +1,12 @@
+// const API_BASE_URL =
+//   window.location.hostname === "127.0.0.1"
+//     ? "http://127.0.0.1:3001"
+//     : "http://localhost:3001";
+
 const API_BASE_URL =
-  window.location.hostname === "127.0.0.1"
-    ? "http://127.0.0.1:3001"
-    : "http://localhost:3001";
+  window.location.hostname === "26.34.28.107";
+
+
 
 function showAlertServer(type, topic, message) {
   const toastrOptions = {
