@@ -279,7 +279,7 @@ function updateLRL(userData) {
 
 async function sendScoreToServer(score) {
   if (!window.userData) {
-    window.userData = {
+    window.userData.user = {
       loggedIn: false,
       username: "Guest",
       UID: null,
@@ -287,7 +287,7 @@ async function sendScoreToServer(score) {
     };
   }
 
-  if (window.userData.loggedIn === false) {
+  if (window.userData.user.loggedIn === false) {
     showAlertServer(
       "warning",
       "Not logged in",
