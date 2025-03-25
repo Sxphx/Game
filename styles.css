@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Pixelify+Sans:wght@400..700&family=Tiny5&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Pixelify+Sans:wght@400..700&family=Tiny5&display=swap");
 
 .tiny5-regular {
   font-family: "Tiny5", sans-serif;
@@ -53,7 +53,6 @@ span.menu-spacer {
   justify-content: center;
 }
 
-
 .resource {
   min-width: 150px;
 }
@@ -90,26 +89,26 @@ span.menu-spacer {
 
 .resource-level {
   height: 100%;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border-radius: 4px;
   transition: background-color 0.3s ease;
   transition: width 0.3s ease-out;
 }
 
 .resource-level.critical {
-  background-color: #F44336;
+  background-color: #f44336;
 }
 
 .resource-level.warning {
-  background-color: #FFC107;
+  background-color: #ffc107;
 }
 
 .resource-level.moderate {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 .resource-level.good {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 .resource p {
@@ -149,7 +148,7 @@ span.menu-spacer {
 }
 
 .btn-green {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -168,6 +167,17 @@ span.menu-spacer {
 .btn-red {
   background-color: #f44336;
   color: white;
+}
+
+.btn-yellow {
+  background-color: #ffeb3b;
+  color: black;
+}
+
+.btn-yellow:hover {
+  background-color: #f1c40f;
+  transition: all 0.3s ease;
+  transform: scale(1.05);
 }
 
 .btn-red:hover {
@@ -212,4 +222,35 @@ td:hover {
 img.city {
   width: 40%;
   opacity: 1 !important;
+}
+
+.leaderboard {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  font-size: 1.5rem;
+  width: fit-content;
+}
+
+.leaderboard h1 {
+  font-size: 3.5rem;
+}
+
+
+.leaderboard .first i.fa-crown {
+  color: gold;
+}
+
+.leaderboard .second i.fa-crown {
+  color: silver;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #000;
 }
