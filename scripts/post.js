@@ -1,7 +1,7 @@
 const API_BASE_URL =
   window.location.hostname === "127.0.0.1"
-    ? "http://127.0.0.1:3000"
-    : "http://localhost:3000";
+    ? "http://127.0.0.1:3001"
+    : "http://localhost:3001";
 
 function showAlertServer(type, topic, message) {
   const toastrOptions = {
